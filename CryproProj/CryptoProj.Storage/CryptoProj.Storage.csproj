@@ -12,11 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\CryproProj.Domain\CryproProj.Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Repositories\" />
+      <ProjectReference Include="..\CryptoProj.Domain\CryptoProj.Domain.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryproProj.API", "CryproProj.API\CryproProj.API.csproj", "{54232331-252A-46A0-BC77-42359CE09AF4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoProj.API", "CryptoProj.API\CryptoProj.API.csproj", "{54232331-252A-46A0-BC77-42359CE09AF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryproProj.Domain", "CryproProj.Domain\CryproProj.Domain.csproj", "{F0F7DCD7-FA7E-4EE6-9DAF-3D06DB770EE3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoProj.Domain", "CryptoProj.Domain\CryptoProj.Domain.csproj", "{F0F7DCD7-FA7E-4EE6-9DAF-3D06DB770EE3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoProj.Storage", "CryptoProj.Storage\CryptoProj.Storage.csproj", "{16588D7B-9140-47B1-B797-563ECBFEAB41}"
 EndProject

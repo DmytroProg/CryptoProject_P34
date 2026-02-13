@@ -1,4 +1,4 @@
-﻿namespace CryproProj.Domain.Models;
+﻿namespace CryptoProj.Domain.Models;
 
 public class CryptoHistoryItem
 {

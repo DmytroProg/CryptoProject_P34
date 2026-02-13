@@ -1,4 +1,4 @@
-﻿using CryproProj.Domain.Models;
+﻿using CryptoProj.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CryptoProj.Storage;
