@@ -1,0 +1,93 @@
+﻿################################################################################
+# .NET / ASP.NET Core (based on GitHub's VisualStudio.gitignore)
+# https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
+################################################################################
+
+## Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## Visual Studio / MSBuild artifacts
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+*.cache
+*.nupkg
+*.snupkg
+*.nuspec
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+## Publish output
+**/[Pp]ublish/
+**/[Pp]ublished/
+**/wwwroot/**/dist/
+**/wwwroot/**/build/
+
+## Local settings / secrets (ASP.NET Core)
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+
+## Dotnet tool / workload local caches (safe to ignore)
+.dotnet/
+.dotnet-tools.json
+
+## Test results
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+
+## Coverage output (common tools)
+coverage/
+coverage.* 
+TestResults/
+
+## OS / editor noise
+.DS_Store
+Thumbs.db
+
+################################################################################
+# JetBrains Rider / IntelliJ (based on GitHub's JetBrains.gitignore)
+# https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
+################################################################################
+
+## Rider / IntelliJ project files
+.idea/
+
+## JetBrains Rider plugin: Rider-specific user settings
+*.sln.iml
+
+## JetBrains caches
+**/.idea/**/workspace.xml
+**/.idea/**/tasks.xml
+**/.idea/**/usage.statistics.xml
+**/.idea/**/contentModel.xml
+**/.idea/**/dataSources/
+**/.idea/**/dataSources.ids
+**/.idea/**/dataSources.local.xml
+**/.idea/**/sqlDataSources.xml
+**/.idea/**/dynamic.xml
+**/.idea/**/uiDesigner.xml
+
+################################################################################
+# Optional: keep solution & project files tracked (normal)
+################################################################################
+!*.sln
+!*.csproj
+!*.fsproj
+!*.vbproj
+!*.props
+!*.targets
+!*.slnf
