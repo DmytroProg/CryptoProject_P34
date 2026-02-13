@@ -9,6 +9,8 @@
 [Ll]og/
 [Ll]ogs/
 
+workspace.xml
+
 ## Visual Studio / MSBuild artifacts
 *.user
 *.rsuser
