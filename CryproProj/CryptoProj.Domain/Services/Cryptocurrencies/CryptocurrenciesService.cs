@@ -38,7 +38,7 @@ public class CryptocurrenciesService
         return MapToResponse(crypto);
     }
     
-    public async Task<CryptocurrencyResponse> Add(int id, CreateCryptocurrencyRequest request)
+    public async Task<CryptocurrencyResponse> Update(int id, CreateCryptocurrencyRequest request)
     {
         var crypto = await _cryptocurrencyRepository.Get(id);
         
