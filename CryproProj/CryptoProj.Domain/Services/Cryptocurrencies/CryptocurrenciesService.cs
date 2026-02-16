@@ -1,6 +1,7 @@
 using CryptoProj.Domain.Abstractions;
 using CryptoProj.Domain.Models;
 using CryptoProj.Domain.Models.Requests;
+using Microsoft.Extensions.Logging;
 
 namespace CryptoProj.Domain.Services.Cryptocurrencies;
 
@@ -8,11 +9,13 @@ public class CryptocurrenciesService
 {
     private readonly ICryptocurrencyRepository _cryptocurrencyRepository;
     private readonly ICryptoHistoryRepository _cryptoHistoryRepository;
+    private readonly ILogger<CryptocurrenciesService> _logger;
 
-    public CryptocurrenciesService(ICryptocurrencyRepository cryptocurrencyRepository, ICryptoHistoryRepository cryptoHistoryRepository)
+    public CryptocurrenciesService(ICryptocurrencyRepository cryptocurrencyRepository, ICryptoHistoryRepository cryptoHistoryRepository, ILogger<CryptocurrenciesService> logger)
     {
         _cryptocurrencyRepository = cryptocurrencyRepository;
         _cryptoHistoryRepository = cryptoHistoryRepository;
+        _logger = logger;
     }
 
     public async Task<CryptocurrencyResponse?> GetById(int id)
@@ -35,6 +38,8 @@ public class CryptocurrenciesService
         
         crypto = await _cryptocurrencyRepository.Add(crypto);
         
+        _logger.LogInformation($"Cryptocurrency {crypto.Symbol} added successfully.");
+        
         return MapToResponse(crypto);
     }
     
@@ -51,11 +56,14 @@ public class CryptocurrenciesService
         
         crypto = await _cryptocurrencyRepository.Update(crypto);
         
+        _logger.LogInformation($"Cryptocurrency {crypto.Symbol} updated successfully.");
+        
         return MapToResponse(crypto);
     }
     
     public Task Delete(int id)
     {
+        _logger.LogInformation($"Cryptocurrency with id {id} deleted successfully.");
         return _cryptocurrencyRepository.Delete(id);
     }
 
@@ -72,6 +80,8 @@ public class CryptocurrenciesService
         };
         
         await _cryptoHistoryRepository.Add(cryptoHistory);
+        
+        _logger.LogInformation($"History item for cryptocurrency {cryptocurrencyId} added successfully.");
     }
 
     public Task<CryptoHistoryResponse[]> GetHistories(HistoryRequest request)

@@ -20,4 +20,18 @@ public class UsersController : ControllerBase
         var user = await _usersService.GetById(id);
         return Ok(user);
     }
+    
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] RegisterUserRequest request)
+    {
+        var user = await _usersService.Register(request);
+        return Ok(user);
+    }
+    
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginUserRequest request)
+    {
+        var user = await _usersService.Login(request);
+        return Ok(user);
+    }
 }

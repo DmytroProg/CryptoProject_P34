@@ -1,16 +1,19 @@
 using CryptoProj.Domain.Abstractions;
 using CryptoProj.Domain.Exceptions;
 using CryptoProj.Domain.Models;
+using Microsoft.Extensions.Logging;
 
 namespace CryptoProj.Domain.Services.Users;
 
 public class UsersService
 {
     private readonly IUserRepository _userRepository;
+    private readonly ILogger<UsersService> _logger;
 
-    public UsersService(IUserRepository userRepository)
+    public UsersService(IUserRepository userRepository, ILogger<UsersService> logger)
     {
         _userRepository = userRepository;
+        _logger = logger;
     }
 
     public async Task<UserResponse> Register(RegisterUserRequest request)
@@ -29,6 +32,7 @@ public class UsersService
         };
 
         user = await _userRepository.Register(user);
+        _logger.LogInformation($"User {user.Username} registered successfully.");
 
         return MapToResponse(user);
     }
@@ -41,6 +45,8 @@ public class UsersService
         {
             throw new InvalidCredentialsException();
         }
+        
+        _logger.LogInformation($"User {user.Username} logged in successfully.");
 
         return MapToResponse(user);
     }
