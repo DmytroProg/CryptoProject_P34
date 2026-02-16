@@ -19,8 +19,4 @@
       <ProjectReference Include="..\CryptoProj.Storage\CryptoProj.Storage.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Middlewares\" />
-    </ItemGroup>
-
 </Project>

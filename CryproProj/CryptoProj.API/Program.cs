@@ -1,4 +1,5 @@
 using CryptoProj.API;
+using CryptoProj.API.Middlewares;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ builder.Host.UseSerilog((context, services, loggerConfiguration) =>
         .ReadFrom.Configuration(context.Configuration)
         .ReadFrom.Services(services);
 });
+
+builder.Services.AddTransient<GlobalExceptionHandler>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -25,6 +28,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseSerilogRequestLogging();
+
+app.UseMiddleware<GlobalExceptionHandler>();
 
 app.UseHttpsRedirection();
 
