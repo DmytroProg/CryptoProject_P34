@@ -41,6 +41,10 @@ public class CryptoContext : DbContext
         
         modelBuilder.Entity<CryptoHistoryItem>()
             .HasKey(h => h.Id);
+
+        modelBuilder.Entity<CryptoHistoryItem>()
+            .Property(h => h.Id)
+            .ValueGeneratedNever();
         
         modelBuilder.Entity<CryptoHistoryItem>()
             .HasOne<Cryptocurrency>()

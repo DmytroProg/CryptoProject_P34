@@ -17,13 +17,11 @@ public class UserRepository : BaseRepository<User>, IUserRepository
         return user;
     }
 
-    public async Task<User?> Login(string email, string passwordHash)
+    public async Task<User?> GetUserByEmail(string email)
     {
         var user = await Context.Users.FirstOrDefaultAsync(u => u.Email == email);
 
-        return user != null && passwordHash == user.PasswordHash
-            ? user 
-            : null;
+        return user;
     }
 
     public Task<bool> IsEmailTaken(string email)

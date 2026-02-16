@@ -19,7 +19,7 @@ public class UsersService
         {
             throw new EmailAlreadyTakenException(request.Email);
         }
-        
+
         var user = new User
         {
             Email = request.Email,
@@ -27,17 +27,39 @@ public class UsersService
             Username = request.Username,
             CreatedAt = DateTime.UtcNow
         };
-        
-        await _userRepository.Register(user);
-        
+
+        user = await _userRepository.Register(user);
+
         return MapToResponse(user);
     }
 
-    private UserResponse MapToResponse(User user) => new()
+    public async Task<UserResponse> Login(LoginUserRequest request)
     {
-        Id = user.Id,
-        Email = user.Email,
-        Username = user.Username,
-        Balance = user.Balance
-    };
+        var user = await _userRepository.GetUserByEmail(request.Email);
+
+        if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+        {
+            throw new InvalidCredentialsException();
+        }
+
+        return MapToResponse(user);
+    }
+
+    public async Task<UserResponse?> GetById(int userId)
+    {
+        var user = await _userRepository.Get(userId);
+        
+        return user == null
+            ? null
+            : MapToResponse(user);
+    }
+
+    private UserResponse MapToResponse(User user) =>
+        new()
+        {
+            Id = user.Id,
+            Email = user.Email,
+            Username = user.Username,
+            Balance = user.Balance
+        };
 }
