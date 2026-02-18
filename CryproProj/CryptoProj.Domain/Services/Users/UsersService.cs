@@ -1,6 +1,7 @@
 using CryptoProj.Domain.Abstractions;
 using CryptoProj.Domain.Exceptions;
 using CryptoProj.Domain.Models;
+using CryptoProj.Domain.Services.Auth;
 using Microsoft.Extensions.Logging;
 
 namespace CryptoProj.Domain.Services.Users;
@@ -8,12 +9,14 @@ namespace CryptoProj.Domain.Services.Users;
 public class UsersService
 {
     private readonly IUserRepository _userRepository;
+    private readonly JwtTokenGenerator _jwtTokenGenerator;
     private readonly ILogger<UsersService> _logger;
 
-    public UsersService(IUserRepository userRepository, ILogger<UsersService> logger)
+    public UsersService(IUserRepository userRepository, ILogger<UsersService> logger, JwtTokenGenerator jwtTokenGenerator)
     {
         _userRepository = userRepository;
         _logger = logger;
+        _jwtTokenGenerator = jwtTokenGenerator;
     }
 
     public async Task<UserResponse> Register(RegisterUserRequest request)
@@ -33,8 +36,10 @@ public class UsersService
 
         user = await _userRepository.Register(user);
         _logger.LogInformation($"User {user.Username} registered successfully.");
+        
+        var token = _jwtTokenGenerator.GenerateToken(user);
 
-        return MapToResponse(user);
+        return MapToResponse(user, token);
     }
 
     public async Task<UserResponse> Login(LoginUserRequest request)
@@ -47,8 +52,10 @@ public class UsersService
         }
         
         _logger.LogInformation($"User {user.Username} logged in successfully.");
+        
+        var token = _jwtTokenGenerator.GenerateToken(user);
 
-        return MapToResponse(user);
+        return MapToResponse(user, token);
     }
 
     public async Task<UserResponse?> GetById(int userId)
@@ -60,12 +67,13 @@ public class UsersService
             : MapToResponse(user);
     }
 
-    private UserResponse MapToResponse(User user) =>
+    private UserResponse MapToResponse(User user, string? token = null) =>
         new()
         {
             Id = user.Id,
             Email = user.Email,
             Username = user.Username,
-            Balance = user.Balance
+            Balance = user.Balance,
+            Token = token
         };
 }

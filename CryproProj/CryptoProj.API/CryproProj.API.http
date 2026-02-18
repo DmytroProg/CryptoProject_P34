@@ -1,6 +1,7 @@
 @CryproProj.API_HostAddress = http://localhost:5154
 
-GET {{CryproProj.API_HostAddress}}/weatherforecast/
+GET http://localhost:5154/api/v1/cryptos/1
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJlbWFpbCI6ImVtYWlsIiwiZXhwIjoxNzcxNDM3Nzk0LCJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QifQ.ofVD8Gw07xHH_8lT-15eZAd9kE6dRWj3XGXHpK4xG4A
 
 ###

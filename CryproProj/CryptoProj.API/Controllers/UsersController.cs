@@ -1,4 +1,5 @@
 using CryptoProj.Domain.Services.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CryptoProj.API.Controllers;
@@ -14,6 +15,7 @@ public class UsersController : ControllerBase
         _usersService = usersService;
     }
 
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUser([FromRoute] int id)
     {

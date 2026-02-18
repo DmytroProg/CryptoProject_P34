@@ -1,4 +1,5 @@
 using CryptoProj.Domain.Abstractions;
+using CryptoProj.Domain.Services.Auth;
 using CryptoProj.Domain.Services.Cryptocurrencies;
 using CryptoProj.Domain.Services.Users;
 using CryptoProj.Storage;
@@ -19,6 +20,7 @@ public static class DependencyInjection
 
         services.AddScoped<UsersService>();
         services.AddScoped<CryptocurrenciesService>();
+        services.AddTransient<JwtTokenGenerator>();
         
         return services;
     }

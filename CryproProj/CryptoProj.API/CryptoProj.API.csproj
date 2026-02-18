@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.24" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.24" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.24" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.24" />
@@ -17,6 +18,10 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CryptoProj.Storage\CryptoProj.Storage.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="SessionStorage.cs" />
     </ItemGroup>
 
 </Project>

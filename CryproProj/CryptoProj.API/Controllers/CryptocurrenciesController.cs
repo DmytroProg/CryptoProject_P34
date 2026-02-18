@@ -1,9 +1,11 @@
 using CryptoProj.Domain.Models.Requests;
 using CryptoProj.Domain.Services.Cryptocurrencies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CryptoProj.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/v1/cryptos")]
 public class CryptocurrenciesController : ControllerBase
