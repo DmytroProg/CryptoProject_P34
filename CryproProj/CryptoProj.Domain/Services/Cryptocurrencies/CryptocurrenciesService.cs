@@ -17,6 +17,11 @@ public class CryptocurrenciesService
         _cryptoHistoryRepository = cryptoHistoryRepository;
         _logger = logger;
     }
+    
+    public Task<Cryptocurrency[]> GetCryptocurrencies(CryptocurrencyRequest request)
+    {
+        return _cryptocurrencyRepository.GetAll(request);
+    }
 
     public async Task<CryptocurrencyResponse?> GetById(int id)
     {

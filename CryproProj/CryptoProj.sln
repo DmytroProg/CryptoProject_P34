@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoProj.Domain", "Crypto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoProj.Storage", "CryptoProj.Storage\CryptoProj.Storage.csproj", "{16588D7B-9140-47B1-B797-563ECBFEAB41}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoProj.WebDataProvider", "CryptoProj.WebDataProvider\CryptoProj.WebDataProvider.csproj", "{F7134585-EA7F-4961-9416-1343F5560542}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{16588D7B-9140-47B1-B797-563ECBFEAB41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16588D7B-9140-47B1-B797-563ECBFEAB41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16588D7B-9140-47B1-B797-563ECBFEAB41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7134585-EA7F-4961-9416-1343F5560542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7134585-EA7F-4961-9416-1343F5560542}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7134585-EA7F-4961-9416-1343F5560542}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7134585-EA7F-4961-9416-1343F5560542}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

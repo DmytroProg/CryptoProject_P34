@@ -1,20 +1,49 @@
+using CryptoProj.Domain.Models;
 using CryptoProj.Domain.Models.Requests;
 using CryptoProj.Domain.Services.Cryptocurrencies;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace CryptoProj.API.Controllers;
 
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("api/v1/cryptos")]
 public class CryptocurrenciesController : ControllerBase
 {
     private readonly CryptocurrenciesService _cryptocurrenciesService;
+    private readonly IValidator<CryptocurrencyRequest> _validator;
+    private readonly IMemoryCache _memoryCache;
 
-    public CryptocurrenciesController(CryptocurrenciesService cryptocurrenciesService)
+    public CryptocurrenciesController(CryptocurrenciesService cryptocurrenciesService, IMemoryCache memoryCache, IValidator<CryptocurrencyRequest> validator)
     {
         _cryptocurrenciesService = cryptocurrenciesService;
+        _memoryCache = memoryCache;
+        _validator = validator;
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetCryptos([FromQuery] CryptocurrencyRequest request)
+    {
+        _validator.ValidateAndThrow(request);
+        
+        if (_memoryCache.TryGetValue("cryptos", out Cryptocurrency[] cryptos))
+        {
+            return Ok(cryptos);
+        }
+        
+        var crypto = await _cryptocurrenciesService.GetCryptocurrencies(request);
+
+        var options = new MemoryCacheEntryOptions()
+            .SetSlidingExpiration(TimeSpan.FromMinutes(10))
+            .SetPriority(CacheItemPriority.High)
+            .SetAbsoluteExpiration(TimeSpan.FromMinutes(30));
+        
+        _memoryCache.Set("cryptos", crypto, options);
+        
+        return Ok(crypto);
     }
     
     [HttpGet("{id}")]
@@ -28,6 +57,9 @@ public class CryptocurrenciesController : ControllerBase
     public async Task<IActionResult> AddCrypto([FromBody] CreateCryptocurrencyRequest request)
     {
         var crypto = await _cryptocurrenciesService.Add(request);
+        
+        _memoryCache.Remove("cryptos");
+        
         return CreatedAtAction(nameof(GetCrypto), new { id = crypto.Id }, crypto);
     }
     

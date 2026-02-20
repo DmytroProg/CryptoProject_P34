@@ -1,5 +1,6 @@
 using System.Text.Json;
 using CryptoProj.Domain.Exceptions;
+using FluentValidation;
 
 namespace CryptoProj.API.Middlewares;
 
@@ -18,6 +19,7 @@ public class GlobalExceptionHandler : IMiddleware
                 ArgumentException => StatusCodes.Status400BadRequest,
                 InvalidCredentialsException => StatusCodes.Status400BadRequest,
                 EmailAlreadyTakenException => StatusCodes.Status400BadRequest,
+                ValidationException => StatusCodes.Status400BadRequest,
                 _ => StatusCodes.Status500InternalServerError
             };
             
@@ -25,9 +27,20 @@ public class GlobalExceptionHandler : IMiddleware
             context.Response.ContentType = "application/json";
 
             await context.Response.Body.FlushAsync();
-            var error = new Error(statusCode, ex.Message, ex.StackTrace);
-            var errorJson = JsonSerializer.Serialize(error);
-            await context.Response.WriteAsync(errorJson);
+
+            if (ex is ValidationException validationException)
+            {
+                var errorValidation = validationException.Errors.Select(x => (x.PropertyName, x.ErrorMessage)).ToArray()[0];
+                var error = new Error(statusCode, errorValidation.PropertyName, errorValidation.ErrorMessage);
+                var errorJson = JsonSerializer.Serialize(error);
+                await context.Response.WriteAsync(errorJson);
+            }
+            else
+            {
+                var error = new Error(statusCode, ex.Message, ex.StackTrace);
+                var errorJson = JsonSerializer.Serialize(error);
+                await context.Response.WriteAsync(errorJson);
+            }
         }
     }
 

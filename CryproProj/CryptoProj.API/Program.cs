@@ -16,6 +16,8 @@ builder.Host.UseSerilog((context, services, loggerConfiguration) =>
 
 builder.Services.AddTransient<GlobalExceptionHandler>();
 
+builder.Services.AddMemoryCache();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {

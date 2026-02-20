@@ -1,5 +1,7 @@
 ﻿using CryptoProj.Domain.Abstractions;
 using CryptoProj.Domain.Models;
+using CryptoProj.Domain.Models.Requests;
+using Microsoft.EntityFrameworkCore;
 
 namespace CryptoProj.Storage.Repositories;
 
@@ -7,6 +9,22 @@ public class CryptocurrencyRepository : BaseRepository<Cryptocurrency>, ICryptoc
 {
     public CryptocurrencyRepository(CryptoContext context) : base(context)
     {
+    }
+
+    public Task<Cryptocurrency[]> GetAll(CryptocurrencyRequest request)
+    {
+        var query = Context.Set<Cryptocurrency>()
+            .AsNoTracking();
+
+        if (!string.IsNullOrEmpty(request.Symbol))
+        {
+            query = query.Where(c => c.Symbol.Contains(request.Symbol));
+        }
+        
+        return query
+            .Skip(request.Offset)
+            .Take(request.Limit)
+            .ToArrayAsync();
     }
 
     public async Task<Cryptocurrency> Update(Cryptocurrency cryptocurrency)
