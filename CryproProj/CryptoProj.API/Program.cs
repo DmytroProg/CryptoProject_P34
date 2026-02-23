@@ -17,6 +17,8 @@ builder.Host.UseSerilog((context, services, loggerConfiguration) =>
 builder.Services.AddTransient<GlobalExceptionHandler>();
 
 builder.Services.AddMemoryCache();
+//builder.Services.AddHostedService<TestHostedService>();
+builder.Services.AddHostedService<CryptoAnalysisHostedService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
